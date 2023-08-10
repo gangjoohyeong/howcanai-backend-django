@@ -116,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -145,14 +145,14 @@ REST_FRAMEWORK = {
 import datetime
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1),  # 토큰 만료 기간 설정
-    'SLIDING_TOKEN_REFRESH_LIFETIME': datetime.timedelta(days=7),  # 리프레시 토큰 만료 기간 설정
-    'SLIDING_TOKEN_LIFETIME': datetime.timedelta(days=14),
-    'SLIDING_TOKEN_REFRESH_LIFETIME': datetime.timedelta(days=30),
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1000),  # 토큰 만료 기간 설정
+    'SLIDING_TOKEN_REFRESH_LIFETIME': datetime.timedelta(days=1000),  # 리프레시 토큰 만료 기간 설정
+    'SLIDING_TOKEN_LIFETIME': datetime.timedelta(days=1000),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': datetime.timedelta(days=1000),
 }
 
 
-# CORS
+# # CORS
 CORS_ORIGIN_ALLOW_ALL=True # 모든 호스트 허용
 CORS_ALLOW_CREDENTIALS = True # 쿠키가 cross-site HTTP 요청에 포함될 수 있다
 
@@ -177,4 +177,4 @@ CORS_ALLOW_HEADERS = ( # 실제 요청을 할 때 사용될 수 있는 non-stand
     'x-requested-with',
 )
 
-APPEND_SLASH = False # 관련 에러 제거
+# APPEND_SLASH = False # 관련 에러 제거
