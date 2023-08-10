@@ -1,3 +1,5 @@
+import os
+
 """
 Django settings for howcanai project.
 
@@ -38,11 +40,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
     'user',
     'chatroom',
+    'drf_yasg',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', 
+    'django.middleware.common.CommonMiddleware', 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -124,3 +132,49 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# JWT 인증 설정
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # JWT 인증 설정
+    ],
+}
+
+# JWT 설정
+import datetime
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1),  # 토큰 만료 기간 설정
+    'SLIDING_TOKEN_REFRESH_LIFETIME': datetime.timedelta(days=7),  # 리프레시 토큰 만료 기간 설정
+    'SLIDING_TOKEN_LIFETIME': datetime.timedelta(days=14),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': datetime.timedelta(days=30),
+}
+
+
+# CORS
+CORS_ORIGIN_ALLOW_ALL=True # 모든 호스트 허용
+CORS_ALLOW_CREDENTIALS = True # 쿠키가 cross-site HTTP 요청에 포함될 수 있다
+
+CORS_ALLOW_METHODS = (  # 실제 요청에 허용되는 HTTP 동사 리스트
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+)
+
+CORS_ALLOW_HEADERS = ( # 실제 요청을 할 때 사용될 수 있는 non-standard HTTP 헤더 목록// 현재 기본값
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+)
+
+APPEND_SLASH = False # 관련 에러 제거
