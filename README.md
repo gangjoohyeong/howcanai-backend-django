@@ -4,8 +4,10 @@
 
 기존의 FastAPI로 구축한 backend 서버를 Django (DRF)로 migration 합니다.
 
-https://github.com/boostcampaitech5/level3_recsys_finalproject-recsys-11
-https://github.com/NewRecsys/howcanai-backend
+<br>
+
+- https://github.com/boostcampaitech5/level3_recsys_finalproject-recsys-11
+- https://github.com/NewRecsys/howcanai-backend
 
 ## TODO
 
