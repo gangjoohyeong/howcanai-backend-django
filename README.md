@@ -2,7 +2,7 @@
 
 부스트캠프 AI Tech 5기 최종프로젝트로 진행한 <b>howcan.ai</b> 프로젝트에 관련된 레포지토리입니다.
 
-기존의 FastAPI로 구축한 backend 서버를 Django (DRF)로 migration 합니다.
+기존에 FastAPI로 구축한 backend 서버를 Django (DRF)로 migration 합니다.
 
 <br>
 
