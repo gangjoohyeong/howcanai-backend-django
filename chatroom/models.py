@@ -11,9 +11,8 @@ class Chatroom(models.Model):
 
 class Qna(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    question = models.TextField(max_length=200, null=False)
-    answer = models.TextField(max_length=100, null=False)
+    question = models.TextField(null=False)
+    answer = models.TextField(null=False)
     create_date = models.DateTimeField(auto_now_add=True)
     chatroom = models.ForeignKey(Chatroom, on_delete=models.CASCADE, null=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
-    nexts = models.TextField(max_length=100)
+    nexts = models.TextField()

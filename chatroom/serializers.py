@@ -10,10 +10,5 @@ class ChatroomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chatroom
         fields = '__all__'
-    
-    def create(self, validated_data):
-        if 'title' not in validated_data:
-            validated_data['title'] = 'New Chat'
-        return Chatroom.objects.create(**validated_data)
         
         

@@ -114,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
 TIME_ZONE = 'Asia/Seoul'
 
@@ -145,10 +145,10 @@ REST_FRAMEWORK = {
 import datetime
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1000),  # 토큰 만료 기간 설정
-    'SLIDING_TOKEN_REFRESH_LIFETIME': datetime.timedelta(days=1000),  # 리프레시 토큰 만료 기간 설정
-    'SLIDING_TOKEN_LIFETIME': datetime.timedelta(days=1000),
-    'SLIDING_TOKEN_REFRESH_LIFETIME': datetime.timedelta(days=1000),
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=3),  # 토큰 만료 기간 설정
+    'SLIDING_TOKEN_REFRESH_LIFETIME': datetime.timedelta(days=7),  # 리프레시 토큰 만료 기간 설정
+    'SLIDING_TOKEN_LIFETIME': datetime.timedelta(days=3),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': datetime.timedelta(days=7),
 }
 
 
@@ -177,4 +177,4 @@ CORS_ALLOW_HEADERS = ( # 실제 요청을 할 때 사용될 수 있는 non-stand
     'x-requested-with',
 )
 
-# APPEND_SLASH = False # 관련 에러 제거
+APPEND_SLASH = False # 관련 에러 제거

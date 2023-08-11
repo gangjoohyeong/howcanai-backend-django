@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
-from chatroom.api import ChatroomListView, ChatroomDetailView, QnaListView
+from chatroom.api import ChatroomListView, ChatroomDetailView, QnaListView, ChatroomCreateView
 from user.api import UserCreate, UserLogin
 
 from django.conf import settings
@@ -43,6 +43,7 @@ urlpatterns = [
     
     
     path('api/chatroom/list', ChatroomListView.as_view(), name='chatroom_list'),
+    path('api/chatroom/create', ChatroomCreateView.as_view(), name='chatroom_create'),
     path('api/chatroom/detail/<str:chatroom_id>', ChatroomDetailView.as_view(), name='chatroom_detail'),
     path('api/chatroom/update/<str:id>', ChatroomDetailView.as_view(), name='chatroom_update'),
     path('api/chatroom/delete/<str:id>', ChatroomDetailView.as_view(), name='chatroom_delete'),

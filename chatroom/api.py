@@ -1,10 +1,10 @@
+import json
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import *
 from rest_framework import status, viewsets
 from chat.run import run_chat
-from chat.args import parse_args
 
 
 
@@ -16,15 +16,22 @@ class ChatroomListView(APIView):
         user_chatrooms = Chatroom.objects.filter(user=request.user)
         serializer = ChatroomSerializer(user_chatrooms, many=True)
         return Response(serializer.data)
+
+class ChatroomCreateView(APIView):
+    permission_classes = [IsAuthenticated] 
     
     # /api/chatroom/create
     def post(self, request):
-        serializer = ChatroomSerializer(data=request.data)
+        data = request.data.copy()  # 입력 데이터 복사
+        data['user'] = request.user.id  # 현재 로그인된 사용자의 ID를 user 필드에 추가
+        
+        serializer = ChatroomSerializer(data=data)
         if serializer.is_valid():
             chatroom = serializer.save()
-            chatroom.user.add(request.user)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+            return Response({'chatroom_id': chatroom.id}, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class ChatroomDetailView(APIView):
     permission_classes = [IsAuthenticated] 
@@ -71,14 +78,13 @@ class QnaListView(APIView):
             chatroom = Chatroom.objects.get(id=chatroom_id, user=request.user)
         except Chatroom.DoesNotExist:
             return Response({'detail': 'Chatroom not found.'}, status=status.HTTP_404_NOT_FOUND)
-        
         query = request.data.get('query')
-        answer, references, nexts = run_chat(parse_args(), query = query)
+        answer, references, nexts = run_chat(query)
         qna_data = {
             'question': query,
             'answer': answer,
             'references': references,
-            'nexts': nexts,
+            'nexts': json.dumps(nexts),
             'chatroom': chatroom.id  # 현재 chatroom과 연결
         }
         qna_serializer = QnaSerializer(data=qna_data)
